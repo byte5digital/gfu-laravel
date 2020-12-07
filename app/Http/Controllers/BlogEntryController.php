@@ -65,7 +65,7 @@ class BlogEntryController extends Controller
      */
     public function edit(BlogEntry $blogEntry)
     {
-        //
+        return view('blog.edit', ['blogEntry' => $blogEntry]);
     }
 
     /**
@@ -77,7 +77,10 @@ class BlogEntryController extends Controller
      */
     public function update(Request $request, BlogEntry $blogEntry)
     {
-        //
+        $blogEntry->headline = $request->post('headline');
+        $blogEntry->content = $request->post('content');
+        $blogEntry->save();
+        return response()->redirectTo(route('blog.index'));
     }
 
     /**
@@ -88,6 +91,7 @@ class BlogEntryController extends Controller
      */
     public function destroy(BlogEntry $blogEntry)
     {
-        //
+        $blogEntry->delete();
+        return response()->redirectTo(route('blog.index'));
     }
 }
