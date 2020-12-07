@@ -54,7 +54,7 @@ class BlogEntryController extends Controller
      */
     public function show(BlogEntry $blogEntry)
     {
-        //
+        return view('blog.show', ['blogEntry' => $blogEntry]);
     }
 
     /**

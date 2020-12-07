@@ -3,10 +3,12 @@
 <div class="container">
     <h1>Blogbeiträge</h1>
     @foreach($blogEntries as $blogEntry)
-    <div class="row">
-        <div class="col-4">{{$blogEntry->headline}}</div>
-        <div class="col-4">{{$blogEntry->user->name}}</div>
-    </div>
+    <a href="{{route('blog.show', $blogEntry)}}">
+        <div class="row">
+            <div class="col-4">{{$blogEntry->headline}}</div>
+            <div class="col-4">{{$blogEntry->user->name}}</div>
+        </div>
+    </a>
     @endforeach
 
     @auth

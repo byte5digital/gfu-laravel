@@ -13,12 +13,17 @@
 
 Route::prefix('blog')->name('blog.')->group(
     function () {
+
         Route::get('/', 'BlogEntryController@index')->name('index');
+        Route::get('/{blogEntry}', 'BlogEntryController@show')->name('show');
+
+        // LARAVEL 8 SYNTAX
+        // Route::get('/', [BlogEntryController::class, 'index'])->name('index');
+
         Route::middleware(['auth'])->group(
             function () {
                 Route::get('/create', 'BlogEntryController@create')->name('create');
                 Route::post('/store', 'BlogEntryController@store')->name('store');
-
             }
         );
     }
