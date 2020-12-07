@@ -11,8 +11,23 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('startpage');
+Route::prefix('blog')->name('blog.')->group(
+    function () {
+        Route::get('/', 'BlogEntryController@index')->name('index');
+        Route::middleware(['auth'])->group(
+            function () {
+                Route::get('/create', 'BlogEntryController@create')->name('create');
+                Route::post('/store', 'BlogEntryController@store')->name('store');
+
+            }
+        );
+    }
+);
+
+
+
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');

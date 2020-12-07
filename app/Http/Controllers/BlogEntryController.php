@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BlogEntry;
+use Auth;
 use Illuminate\Http\Request;
 
 class BlogEntryController extends Controller
@@ -14,7 +15,8 @@ class BlogEntryController extends Controller
      */
     public function index()
     {
-        //
+        $blogEntries = BlogEntry::all();
+        return view('blog.index', ['blogEntries' => $blogEntries]);
     }
 
     /**
@@ -24,24 +26,30 @@ class BlogEntryController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $newBlogEntry = new BlogEntry();
+        $newBlogEntry->headline = $request->post('headline');
+        $newBlogEntry->content = $request->post('content');
+        $newBlogEntry->user_id = $user->id;
+        $newBlogEntry->save();
+        return response()->redirectTo(route('blog.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\BlogEntry  $blogEntry
+     * @param  \App\BlogEntry $blogEntry
      * @return \Illuminate\Http\Response
      */
     public function show(BlogEntry $blogEntry)
@@ -52,7 +60,7 @@ class BlogEntryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BlogEntry  $blogEntry
+     * @param  \App\BlogEntry $blogEntry
      * @return \Illuminate\Http\Response
      */
     public function edit(BlogEntry $blogEntry)
@@ -63,8 +71,8 @@ class BlogEntryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BlogEntry  $blogEntry
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\BlogEntry           $blogEntry
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, BlogEntry $blogEntry)
@@ -75,7 +83,7 @@ class BlogEntryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BlogEntry  $blogEntry
+     * @param  \App\BlogEntry $blogEntry
      * @return \Illuminate\Http\Response
      */
     public function destroy(BlogEntry $blogEntry)
