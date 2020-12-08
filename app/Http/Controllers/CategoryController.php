@@ -101,11 +101,15 @@ class CategoryController extends Controller
     public function destroy($id)
     {
           //find article with id or return 404
-          $article = Category::findOrFail($id);
+          $category = Category::findOrFail($id);
+
 
           //delete article from DB
-          $article->delete();
-  
+          $category->delete();
+
+        // Deletes entry in pivot table when category is soft deleted
+        $category->blogEntries()->sync([]);
+
           //return redirect to view with status in session
           return redirect(route('category.index'))->with('status', 'Category deleted successfully.');
     }

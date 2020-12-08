@@ -91,6 +91,8 @@ class BlogEntryController extends Controller
         $blogEntry->headline = $request->post('headline');
         $blogEntry->content = $request->post('content');
         $blogEntry->save();
+
+        $blogEntry->categories()->sync(request('categories'));
         return response()->redirectTo(route('blog.index'));
     }
 
