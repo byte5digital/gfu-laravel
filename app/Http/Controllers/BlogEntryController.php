@@ -16,8 +16,9 @@ class BlogEntryController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
         $blogEntries = BlogEntry::latest('created_at')->paginate(2);
-        return view('blog.index', ['blogEntries' => $blogEntries]);
+        return view('blog.index', ['blogEntries' => $blogEntries, 'categories' => $categories]);
     }
 
     /**
@@ -106,5 +107,16 @@ class BlogEntryController extends Controller
     {
         $blogEntry->delete();
         return response()->redirectTo(route('blog.index'));
+    }
+
+    public function indexCategorized(Category $category){
+
+        $categories = Category::all();
+
+        $categorizedEntries = Category::where('id', $category->id)->firstOrFail();
+
+        $blogEntries = $categorizedEntries->blogEntries()->paginate(2);
+
+        return view('blog.index', compact('blogEntries', 'categories'));
     }
 }

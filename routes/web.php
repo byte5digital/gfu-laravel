@@ -43,6 +43,8 @@ Route::prefix('category')->name('category.')->group(
         Route::get('/', 'CategoryController@index')->name('index');
     });
 
+Route::get('/blog/category/{category}', 'BlogEntryController@indexCategorized')
+        ->name('blog.categorized');
 
 Auth::routes();
 
