@@ -12,6 +12,6 @@ class Category extends Model
     public function blogEntries(){
 
         // this (one category) belongs to many blog entries
-        return $this->belongsToMany('App\BlogEntry');
+        return $this->belongsToMany('App\BlogEntry')->withTimestamps();
     }
 }

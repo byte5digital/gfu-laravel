@@ -16,7 +16,7 @@ class BlogEntryController extends Controller
      */
     public function index()
     {
-        $blogEntries = BlogEntry::all();
+        $blogEntries = BlogEntry::latest('created_at')->paginate(2);
         return view('blog.index', ['blogEntries' => $blogEntries]);
     }
 
@@ -74,7 +74,9 @@ class BlogEntryController extends Controller
      */
     public function edit(BlogEntry $blogEntry)
     {
-        return view('blog.edit', ['blogEntry' => $blogEntry]);
+        $categories = Category::all();
+        $attachedCategories = $blogEntry->categories()->get();
+        return view('blog.edit', ['blogEntry' => $blogEntry, 'categories' => $categories, 'attachedCategories' => $attachedCategories]);
     }
 
     /**
