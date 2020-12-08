@@ -33,7 +33,15 @@ Route::prefix('blog')->name('blog.')->group(
     }
 );
 
+// Resourceful routes, except index + show -> to show routes use 'php artisan route:list'
+Route::resource('category', 'CategoryController', ['except' => ['index', 'show']])->middleware('auth');
 
+// Routes for index + show
+Route::prefix('category')->name('category.')->group(
+    function () {
+        Route::get('/{category}', 'CategoryController@show')->name('show');
+        Route::get('/', 'CategoryController@index')->name('index');
+    });
 
 
 Auth::routes();
