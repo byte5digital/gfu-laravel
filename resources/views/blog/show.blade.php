@@ -9,7 +9,7 @@
         <label for="content">Inhalt</label>
         <textarea class="form-control" id="content" name="content" readonly>{{$blogEntry->content}}</textarea>
     </div>
-    <a href="{{route('blog.index')}}" class="btn btn-success">Zurück</a>
+    <a href="{{url()->previous()}}" class="btn btn-success">Zurück</a>
 </div>
 
 @endsection
