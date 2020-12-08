@@ -32,4 +32,8 @@ class BlogEntry extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function categories(){
+        return $this->belongsToMany('App\Category');
+    }
 }

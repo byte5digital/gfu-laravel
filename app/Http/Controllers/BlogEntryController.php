@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BlogEntry;
 use Auth;
 use Illuminate\Http\Request;
+use App\Category;
 
 class BlogEntryController extends Controller
 {
@@ -26,7 +27,8 @@ class BlogEntryController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        $categories = Category::all();
+        return view('blog.create', compact('categories'));
     }
 
     /**
@@ -43,6 +45,13 @@ class BlogEntryController extends Controller
         $newBlogEntry->content = $request->post('content');
         $newBlogEntry->user_id = $user->id;
         $newBlogEntry->save();
+
+        if(request()->has('categories')){
+            $newBlogEntry->categories()->attach(request('categories'));
+        }
+
+
+
         return response()->redirectTo(route('blog.index'));
     }
 
