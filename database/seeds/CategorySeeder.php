@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class BlogEntrySeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,8 @@ class BlogEntrySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\BlogEntry::class, 15)->create();
+        DB::table('categories')->insert([
+            'name' => 'PHP'
+        ]);
     }
 }
