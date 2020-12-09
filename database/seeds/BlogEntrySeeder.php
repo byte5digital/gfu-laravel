@@ -11,6 +11,7 @@ class BlogEntrySeeder extends Seeder
      */
     public function run()
     {
+        // generates 15 Blog entries using BlogEntryFactory
         factory(App\BlogEntry::class, 15)->create();
     }
 }

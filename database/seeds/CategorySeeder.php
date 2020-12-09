@@ -11,6 +11,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        // inserts Category with name PHP into categories table
         DB::table('categories')->insert([
             'name' => 'PHP'
         ]);
