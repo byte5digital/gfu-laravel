@@ -40,6 +40,13 @@
                         <li>
                         <a class="nav-link" href="{{route('category.index')}}"  title="">Category Overview</a>
                         </li>
+                        @auth
+                        @if(auth()->user()->isAdmin())
+                        <li>
+                        <a class="nav-link" href="{{route('admin.index')}}"  title="">Admin</a>
+                        </li>
+                        @endif
+                        @endauth
 
                     </ul>
 
