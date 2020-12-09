@@ -5,6 +5,9 @@
         <label for="headline">Überschrift</label>
         <input type="text" class="form-control" id="headline" name="headline" readonly value="{{$blogEntry->headline}}" />
     </div>
+    <div>
+        <img src="{{asset('storage').$blogEntry->img_url}}" width="150" height="150" alt="{{$blogEntry->headline}}">
+    </div>
     <div class="form-group">
         <label for="content">Inhalt</label>
         <textarea class="form-control" id="content" name="content" readonly>{{$blogEntry->content}}</textarea>
