@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\BlogEntry;
 use Auth;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Category;
-
+use Illuminate\Support\Str;
 class BlogEntryController extends Controller
 {
+    use UploadTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -40,11 +43,32 @@ class BlogEntryController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Get image file
+        $image = $request->file('img');
+
+        // Make a image name based on headline and current timestamp
+        $name = Str::slug($request->post('headline')) . '_' . time();
+
+        // Define folder path
+        $folder = '/img/';
+
+        // Make a file path where image will be stored [ folder path + file name + file extension]
+        $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+        // Upload image
+        $this->uploadOne($image, $folder, 'public', $name);
+
         $user = Auth::user();
         $newBlogEntry = new BlogEntry();
         $newBlogEntry->headline = $request->post('headline');
         $newBlogEntry->content = $request->post('content');
         $newBlogEntry->user_id = $user->id;
+        $newBlogEntry->img_url = $filePath;
         $newBlogEntry->save();
 
         if(request()->has('categories')){
