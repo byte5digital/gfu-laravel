@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Http\Controllers\JobController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomVerifyEmail;
 use Illuminate\Support\Carbon;
+use App\Jobs\SendMail;
+use Artisan;
 
 /**
  * App\User
@@ -85,11 +88,16 @@ class User extends Authenticatable implements MustVerifyEmail
    // overwrite verify mail of MustVerifyEmail with CustomVerifyEmail
    public function sendEmailVerificationNotification()
    {
+
       //delays notification by 1 minute
-      $when = now()->addMinutes(1);
-      $this->notify((new CustomVerifyEmail)->delay($when));
+      // $when = now()->addMinutes(1);
+      // $this->notify((new CustomVerifyEmail)->delay($when));
 
       // sends notification instantly
-      //   $this->notify(new CustomVerifyEmail);
+    $this->notify(new CustomVerifyEmail);
+   }
+
+   public function startQueue(){
+      Artisan::call('queue:listen');
    }
 }

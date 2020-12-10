@@ -57,3 +57,4 @@ Route::get('/admin', function(){
 ->middleware(['auth', 'is_admin'])
 ->name('admin.index');
 
+Route::get('test-email', 'JobController@enqueue');
