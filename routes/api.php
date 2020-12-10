@@ -18,4 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // apiResource -> generates routes for crud operations
-Route::apiResource('/blog', 'API\BlogEntryController');
+Route::apiResource('/blog', 'API\BlogEntryController', 
+['parameters' => [
+    'blog' => 'blogEntry'
+    ]
+]);

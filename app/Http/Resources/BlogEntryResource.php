@@ -19,6 +19,7 @@ class BlogEntryResource extends JsonResource
             'user_id' => $this->user->id,
             'username' => $this->user->name,
             'headline' => $this->headline,
+            'content' => $this->content,
         ];
     }
 }
