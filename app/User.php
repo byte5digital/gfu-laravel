@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomVerifyEmail;
+use Illuminate\Support\Carbon;
+
 /**
  * App\User
  *
@@ -38,49 +40,56 @@ use App\Notifications\CustomVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+   use Notifiable;
 
-    const ADMIN_TYPE = 'admin';
-    const DEFAULT_TYPE = 'default';
+   const ADMIN_TYPE = 'admin';
+   const DEFAULT_TYPE = 'default';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-       'name', 'email', 'password',
-    ];
+   /**
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
+   protected $fillable = [
+      'name', 'email', 'password',
+   ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-       'password', 'remember_token',
-    ];
+   /**
+    * The attributes that should be hidden for arrays.
+    *
+    * @var array
+    */
+   protected $hidden = [
+      'password', 'remember_token',
+   ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-       'email_verified_at' => 'datetime',
-    ];
+   /**
+    * The attributes that should be cast to native types.
+    *
+    * @var array
+    */
+   protected $casts = [
+      'email_verified_at' => 'datetime',
+   ];
 
-    public function blogEntries()
-    {
-        return $this->hasMany(BlogEntry::class, 'user_id');
-    }
+   public function blogEntries()
+   {
+      return $this->hasMany(BlogEntry::class, 'user_id');
+   }
 
-    public function isAdmin(){
-       return $this->type === self::ADMIN_TYPE;
-    }
+   public function isAdmin()
+   {
+      return $this->type === self::ADMIN_TYPE;
+   }
 
-    public function sendEmailVerificationNotification()
-{
-    $this->notify(new CustomVerifyEmail);
-}
+   // overwrite verify mail of MustVerifyEmail with CustomVerifyEmail
+   public function sendEmailVerificationNotification()
+   {
+      //delays notification by 1 minute
+      $when = now()->addMinutes(1);
+      $this->notify((new CustomVerifyEmail)->delay($when));
+
+      // sends notification instantly
+      //   $this->notify(new CustomVerifyEmail);
+   }
 }

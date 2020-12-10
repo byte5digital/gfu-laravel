@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CustomVerifyEmail extends Notification
+class CustomVerifyEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -41,7 +41,7 @@ class CustomVerifyEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('GFU Laravel')
+                    ->subject('Queued Mail Test')
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
