@@ -8,6 +8,7 @@ use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Str;
+use App;
 class BlogEntryController extends Controller
 {
     use UploadTrait;
