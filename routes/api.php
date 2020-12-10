@@ -22,4 +22,4 @@ Route::apiResource('/blog', 'API\BlogEntryController',
 ['parameters' => [
     'blog' => 'blogEntry'
     ]
-]);
+])->middleware('api_token');

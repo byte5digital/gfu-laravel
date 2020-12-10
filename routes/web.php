@@ -46,7 +46,7 @@ Route::prefix('category')->name('category.')->group(
 Route::get('/blog/category/{category}', 'BlogEntryController@indexCategorized')
         ->name('blog.categorized');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -56,3 +56,4 @@ Route::get('/admin', function(){
 })
 ->middleware(['auth', 'is_admin'])
 ->name('admin.index');
+

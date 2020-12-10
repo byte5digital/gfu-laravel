@@ -28,7 +28,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogEntry extends Model
 {
+    // headline, content, img_url and user_id are fillable
     protected $fillable = ['headline', 'content', 'img_url', 'user_id'];
+
+    // guarded as empty array = same as fillable with filled array
+    // -> nothing guarded      
+    // protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use App\Notifications\CustomVerifyEmail;
 /**
  * App\User
  *
@@ -36,7 +36,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $blog_entries_count
  */
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -78,4 +78,9 @@ class User extends Authenticatable
     public function isAdmin(){
        return $this->type === self::ADMIN_TYPE;
     }
+
+    public function sendEmailVerificationNotification()
+{
+    $this->notify(new CustomVerifyEmail);
+}
 }
