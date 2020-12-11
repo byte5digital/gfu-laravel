@@ -86,18 +86,15 @@ class User extends Authenticatable implements MustVerifyEmail
    }
 
    // overwrite verify mail of MustVerifyEmail with CustomVerifyEmail
-   public function sendEmailVerificationNotification()
-   {
+   // public function sendEmailVerificationNotification()
+   // {
 
-      //delays notification by 1 minute
-      // $when = now()->addMinutes(1);
-      // $this->notify((new CustomVerifyEmail)->delay($when));
+   //    //delays notification by 1 minute
+   //    // $when = now()->addMinutes(1);
+   //    // $this->notify((new CustomVerifyEmail)->delay($when));
 
-      // sends notification instantly
-    $this->notify(new CustomVerifyEmail);
-   }
+   //    // sends notification instantly
+   //  $this->notify(new CustomVerifyEmail);
+   // }
 
-   public function startQueue(){
-      Artisan::call('queue:listen');
-   }
 }
