@@ -20,12 +20,12 @@ Route::prefix('blog')->name('blog.')->group(
                 Route::get('/create', 'BlogEntryController@create')->name('create');
                 Route::post('/store', 'BlogEntryController@store')->name('store');
                 Route::get('/edit/{blogEntry}', 'BlogEntryController@edit')
-                ->name('edit');
+                    ->name('edit');
                 Route::post('/update/{blogEntry}', 'BlogEntryController@update')
-                ->name('update');
+                    ->name('update');
 
                 Route::delete('/delete/{blogEntry}', 'BlogEntryController@destroy')
-                ->name('delete');
+                    ->name('delete');
             }
         );
         Route::get('/{blogEntry}', 'BlogEntryController@show')->name('show');
@@ -41,20 +41,21 @@ Route::prefix('category')->name('category.')->group(
     function () {
         Route::get('/{category}', 'CategoryController@show')->name('show');
         Route::get('/', 'CategoryController@index')->name('index');
-    });
+    }
+);
 
 Route::get('/blog/category/{category}', 'BlogEntryController@indexCategorized')
-        ->name('blog.categorized');
+    ->name('blog.categorized');
 
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin', function(){
+Route::get('/admin', function () {
     return view('admin.index');
 })
-->middleware(['auth', 'is_admin'])
-->name('admin.index');
+    ->middleware(['auth', 'is_admin'])
+    ->name('admin.index');
 
 Route::get('test-email', 'JobController@enqueue');
