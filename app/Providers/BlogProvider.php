@@ -5,12 +5,12 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\BlogInterface;
 use App\Services\BlogStubContainer;
+use App\Services\BlogMysqlContainer;
 
 class BlogProvider extends ServiceProvider
 {
-
     public $bindings = [
-        BlogInterface::class => BlogStubContainer::class,
+        BlogInterface::class => BlogMysqlContainer::class,
     ];
 
     /**

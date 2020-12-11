@@ -61,6 +61,8 @@ class BlogEntryController extends Controller
         // Get image file
         $image = $request->file('img');
 
+
+
         // Make a image name based on headline and current timestamp
         $name = Str::slug($request->post('headline')) . '_' . time();
 
@@ -73,13 +75,10 @@ class BlogEntryController extends Controller
         // Upload image
         $this->uploadOne($image, $folder, 'public', $name);
 
-        $user = Auth::user();
-        $newBlogEntry = new BlogEntry();
-        $newBlogEntry->headline = $request->post('headline');
-        $newBlogEntry->content = $request->post('content');
-        $newBlogEntry->user_id = $user->id;
-        $newBlogEntry->img_url = $filePath;
-        $newBlogEntry->save();
+        $requestArray = $request->post();
+        $requestArray['filePath'] = $filePath;
+        $newBlogEntry = $this->blogService->createEntityFromArray($requestArray);
+        $this->blogService->saveBlogEntry($newBlogEntry);
 
         if (request()->has('categories')) {
             $newBlogEntry->categories()->attach(request('categories'));
