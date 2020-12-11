@@ -8,6 +8,7 @@ class BlogStubContainer implements BlogInterface
 {
     public function getAllBlogEntries()
     {
+        return [];
     }
 
     public function getBlogEntryById($id)

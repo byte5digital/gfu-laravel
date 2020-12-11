@@ -49,6 +49,6 @@
     @endauth
 
     {{-- Blade partial that displays the pagination result using Bootstrap CSS --}}
-    <div>{{ $blogEntries->links() }}</div>
+    {{-- <div>{{ $blogEntries->links() }}</div> --}}
 </div>
 @endsection

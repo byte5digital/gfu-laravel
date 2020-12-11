@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\BlogInterface;
+use App\Services\BlogStubContainer;
 
 class BlogProvider extends ServiceProvider
 {
