@@ -12,6 +12,50 @@
 
 namespace App{
 /**
+ * App\BlogEntry
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $headline
+ * @property string|null $content
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry whereHeadline($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogEntry whereUserId($value)
+ * @mixin \Eloquent
+ * @property-read \App\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
+ * @property-read int|null $categories_count
+ */
+	class IdeHelperBlogEntry extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * App\Category
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\BlogEntry[] $blogEntries
+ * @property-read int|null $blog_entries_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
+ * @mixin \Eloquent
+ */
+	class IdeHelperCategory extends \Eloquent {}
+}
+
+namespace App{
+/**
  * App\User
  *
  * @property int $id
@@ -36,7 +80,10 @@ namespace App{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @mixin IdeHelperUser
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\BlogEntry[] $blogEntries
+ * @property-read int|null $blog_entries_count
  */
-	class IdeHelperUser extends \Eloquent {}
+	class IdeHelperUser extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
 }
 

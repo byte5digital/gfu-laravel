@@ -9,9 +9,18 @@ use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Str;
 use App;
+use App\Contracts\BlogInterface;
+
 class BlogEntryController extends Controller
 {
     use UploadTrait;
+
+    private $blogService;
+
+    public function __construct(BlogInterface $blogService)
+    {
+        $this->blogService = $blogService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -21,7 +30,7 @@ class BlogEntryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $blogEntries = BlogEntry::latest('created_at')->paginate(2);
+        $blogEntries = $this->blogService->getAllBlogEntries();
         return view('blog.index', ['blogEntries' => $blogEntries, 'categories' => $categories]);
     }
 
@@ -72,7 +81,7 @@ class BlogEntryController extends Controller
         $newBlogEntry->img_url = $filePath;
         $newBlogEntry->save();
 
-        if(request()->has('categories')){
+        if (request()->has('categories')) {
             $newBlogEntry->categories()->attach(request('categories'));
         }
 
@@ -134,7 +143,8 @@ class BlogEntryController extends Controller
         return response()->redirectTo(route('blog.index'));
     }
 
-    public function indexCategorized(Category $category){
+    public function indexCategorized(Category $category)
+    {
 
         $categories = Category::all();
 
