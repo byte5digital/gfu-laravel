@@ -97,7 +97,5 @@ class User extends Authenticatable implements MustVerifyEmail
     $this->notify(new CustomVerifyEmail);
    }
 
-   public function startQueue(){
-      Artisan::call('queue:listen');
-   }
+   
 }

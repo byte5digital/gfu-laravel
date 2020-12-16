@@ -11,7 +11,7 @@ $factory->define(BlogEntry::class, function (Faker $faker) {
         'user_id' => factory(\App\User::class),
 
         //creates headline using Faker 
-        'headline' => $faker->word,
+        'headline' => $faker->sentence,
 
         //creates content using Faker
         'content' => $faker->paragraph,
