@@ -23,3 +23,5 @@ Route::apiResource('/blog', 'API\BlogEntryController',
     'blog' => 'blogEntry'
     ]
 ])->middleware('api_token');
+
+Route::apiResource('/category', 'API\CategoryController');
