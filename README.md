@@ -7,8 +7,8 @@
 
 ### For Docker Setup
 
-*[Docker Desktop](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-*[WSL2 for Windows10](https://docs.microsoft.com/de-de/windows/wsl/install-win10)
+* [Docker Desktop](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+* [WSL2 for Windows10](https://docs.microsoft.com/de-de/windows/wsl/install-win10)
 
 ### Local Installation see below
 
@@ -124,4 +124,12 @@ To start the built in webserver use command:
 
 ```
 php artisan serve
+```
+
+## Link Storage
+
+In case uploaded pictures aren't showing up use the following command to link the storage:
+
+```
+php artisan storage:link
 ```
