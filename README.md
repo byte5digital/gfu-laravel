@@ -21,7 +21,7 @@
 After the migration is complete, you can seed the tables with sample data if needed.
 
 The sample data contains:
-- 3 Tags
+- 1 Category
 - 15 Default Users
 - 15 Articles (one for each User)
 - 1 Admin User
