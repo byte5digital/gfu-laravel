@@ -9,14 +9,14 @@
         <input type="text" class="form-control" id="headline" name="headline" readonly value="{{$blogEntry->headline}}" />
     </div>
     <div>
-        <!-- get image from storage with asset() -->
+        <!-- get image from storage with asset -->
         <img src="{{asset('storage').$blogEntry->img_url}}" width="150" height="150" alt="{{$blogEntry->headline}}">
     </div>
     <div class="form-group">
         <label for="content">Inhalt</label>
         <textarea class="form-control" id="content" name="content" readonly>{{$blogEntry->content}}</textarea>
     </div>
-    <!-- url()->previous() sends the user back to the page they were before, good for pagination! -->
+    <!-- url previous sends the user back to the page they were before, good for pagination! -->
     <a href="{{url()->previous()}}" class="btn btn-success">Zurück</a>
 </div>
 

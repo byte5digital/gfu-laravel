@@ -25,7 +25,7 @@
     <!-- end if errors exist -->
     @endif
     <!-- form to store new entry -->
-    <!-- enctype="multipart/form-data" is needed for passing images -->
+    <!-- enctype = multipart/form-data is needed for passing images -->
     <form action="{{route('blog.store')}}" method="POST" enctype="multipart/form-data">
         <!-- Blade partial for csrf token, forms wont work without this and return 419 when the form is send! -->
         @csrf
