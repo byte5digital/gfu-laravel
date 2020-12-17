@@ -14,6 +14,7 @@ class BlogEntryResource extends JsonResource
      */
     public function toArray($request)
     {
+        //returns mapped array
         return [
             'id' => $this->id,
             'user_id' => $this->user->id,

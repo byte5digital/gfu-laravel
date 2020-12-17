@@ -15,7 +15,9 @@ class UpdateBlogEntriesTableAddField extends Migration
     {
         Schema::table(
             'blog_entries', function (Blueprint $table) {
+                //add user_id to blog_entries table
                 $table->unsignedBigInteger('user_id');
+                //create foreign key
                 $table->foreign('user_id')
                     ->references('id')->on('users')->onDelete('cascade');
             }

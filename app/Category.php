@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Category extends Model
 {
+    //categories can soft delete
     use SoftDeletes;
+
+    //field name is fillable
     protected $fillable = ['name'];
 
     // relationship call with BlogArticle

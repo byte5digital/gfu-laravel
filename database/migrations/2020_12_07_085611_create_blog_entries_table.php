@@ -17,7 +17,9 @@ class CreateBlogEntriesTable extends Migration
             'blog_entries', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->timestamps();
+                //add string headline to table, nullable
                 $table->string('headline')->nullable();
+                //add text content to table, nullable
                 $table->text('content')->nullable();
             }
         );

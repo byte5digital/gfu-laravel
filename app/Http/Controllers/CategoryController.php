@@ -14,8 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        //get all categories
         $categories = Category::all();
 
+        //return view with categories
         return view('category.index', compact('categories'));
     }
 
@@ -26,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-     return view('category.create');
+        //return view for category.create
+        return view('category.create');
     }
 
     /**
@@ -37,12 +40,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //validate Category using validateCategory function in this Controller
         $this->validateCategory();
 
+        // create new category using name in request
         $category = new Category(request(['name']));
 
+        //save new category
         $category->save();
 
+        //redirect to category.index route with status in session
         return redirect(route('category.index'))->with('status', 'success!');
     }
 
@@ -54,8 +61,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+        //get category by id, findOrFail returns 404 when category cant be found
         $category = Category::findOrFail($id);
 
+        //return view for show with category
         return view('category.show', compact('category'));
     }
 
@@ -67,8 +76,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        //get category by id, findOrFail returns 404 when category cant be found
         $category = Category::findOrFail($id);
 
+        //return view for edit with category
         return view('category.edit', compact('category'));
     }
 
@@ -81,14 +92,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //get category by id, findOrFail returns 404 when category cant be found
         $category = Category::findOrFail($id);
 
+        //validate Category using validateCategory function in this Controller
         $this->validateCategory();
 
+        //set name of category to name in request
         $category->name = request('name');
+        //save category
         $category->save();
 
-        
+        //redirect to route category.show with status in session
         return redirect(route('category.show', $id))->with('status', 'Category successfully updated!');
     }
 
@@ -100,26 +115,29 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-          //find article with id or return 404
-          $category = Category::findOrFail($id);
+        //find article with id or return 404
+        $category = Category::findOrFail($id);
 
 
-          //delete article from DB
-          $category->delete();
+        //delete article from DB
+        $category->delete();
 
         // Deletes entry in pivot table when category is soft deleted
         $category->blogEntries()->sync([]);
 
-          //return redirect to view with status in session
-          return redirect(route('category.index'))->with('status', 'Category deleted successfully.');
+        //return redirect to view with status in session
+        return redirect(route('category.index'))->with('status', 'Category deleted successfully.');
     }
 
     /**
      * validates Request 
      */
-    public function validateCategory(){
+    public function validateCategory()
+    {
 
+        //validate request using validator function
         return request()->validate([
+            //name must be required, a strin, min 5 characters, max 50 characters
             'name' => ['required', 'string', 'min:5', 'max:50'],
         ]);
     }

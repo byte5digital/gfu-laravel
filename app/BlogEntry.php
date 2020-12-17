@@ -36,11 +36,18 @@ class BlogEntry extends Model
     // -> nothing guarded      
     // protected $guarded = [];
 
+    /**
+     * Relationship to user
+     */
     public function user()
     {
+        // 'user_id' defines that the field 'user_id' in blog_entries is the foreign key
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Relationship to category
+     */
     public function categories(){
         return $this->belongsToMany('App\Category')->withTimestamps();
     }

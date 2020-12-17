@@ -40,6 +40,7 @@ class CustomVerifyEmail extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        //overwrite verification mail
         return (new MailMessage)
                     ->subject('Queued Mail Test')
                     ->line('The introduction to the notification.')

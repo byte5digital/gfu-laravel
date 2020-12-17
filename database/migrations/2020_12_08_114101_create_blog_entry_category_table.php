@@ -13,6 +13,7 @@ class CreateBlogEntryCategoryTable extends Migration
      */
     public function up()
     {
+        //create pivot table blog_entry_category with foreign keys
         Schema::create('blog_entry_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('blog_entry_id');

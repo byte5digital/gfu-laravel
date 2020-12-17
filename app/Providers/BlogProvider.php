@@ -10,6 +10,7 @@ use App\Services\BlogMysqlContainer;
 class BlogProvider extends ServiceProvider
 {
     public $bindings = [
+        // binding for BlogInterface to BlogMysqlContainer
         BlogInterface::class => BlogMysqlContainer::class,
     ];
 

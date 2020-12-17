@@ -19,10 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // apiResource -> generates routes for crud operations
 Route::apiResource('/blog', 'API\BlogEntryController', 
+//parameter should not be named blog but blogEntry
 ['parameters' => [
     'blog' => 'blogEntry'
     ]
+    //protect api routes with middleware api_token 
+    //api_token is registered in App\Http\Kernel.php
 ])->middleware('api_token');
 
+//generate resource api routes for category and protect them with middleware api_token
 Route::apiResource('/category', 'API\CategoryController')
 ->middleware('api_token');

@@ -15,8 +15,11 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
+            //string name max 50 characters
             $table->string('name', 50);
             $table->timestamps();
+            //entry can be soft deleted
+            //creates field deleted_at which is set with timestamp on delete
             $table->softDeletes();
         });
     }

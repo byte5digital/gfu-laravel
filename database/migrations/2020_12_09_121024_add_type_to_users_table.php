@@ -14,6 +14,7 @@ class AddTypeToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            //add type to user table with default value
             $table->string('type')->default('default');
         });
     }

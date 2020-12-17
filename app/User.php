@@ -41,7 +41,9 @@ use Artisan;
  * @mixin IdeHelperUser
  */
 
-class User extends Authenticatable implements MustVerifyEmail
+// implements MustVerifyEmail enables mail verification 
+// together with verify=true in auth route -> see routes/web.php
+ class User extends Authenticatable implements MustVerifyEmail
 {
    use Notifiable;
 
@@ -80,6 +82,11 @@ class User extends Authenticatable implements MustVerifyEmail
       return $this->hasMany(BlogEntry::class, 'user_id');
    }
 
+   /**
+    * Function to check if user type is admin
+    *
+    * @return boolean
+    */
    public function isAdmin()
    {
       return $this->type === self::ADMIN_TYPE;
