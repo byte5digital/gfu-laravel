@@ -9,7 +9,7 @@
     <!-- Blade partial foreach, $categories are passed from controller to this view -->
     @foreach($categories as $category)
 
-    <!-- {{}} partial can use functions like route() or display content of variables -->
+    <!-- Blade partial with two curly brackets can use functions like route() or display content of variables -->
     <a class="btn btn-primary" href="{{route('blog.categorized', $category->id)}}">{{$category->name}}</a>
 
     <!-- End foreach block -->
